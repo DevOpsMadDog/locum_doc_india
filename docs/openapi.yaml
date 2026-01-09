@@ -1,0 +1,170 @@
+openapi: 3.0.3
+info:
+  title: LocumMap Chennai API
+  version: 0.1.0
+servers:
+  - url: http://localhost:8000
+paths:
+  /auth/otp/request:
+    post:
+      summary: Request OTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+              example:
+                phone: "+919900000001"
+      responses:
+        "200":
+          description: OTP sent
+  /auth/otp/verify:
+    post:
+      summary: Verify OTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+                otp:
+                  type: string
+                role:
+                  type: string
+              example:
+                phone: "+919900000001"
+                otp: "123456"
+                role: "clinic_admin"
+      responses:
+        "200":
+          description: Token
+  /clinics/me:
+    get:
+      summary: Get clinic profile
+      responses:
+        "200":
+          description: Clinic profile
+    post:
+      summary: Create clinic profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                address:
+                  type: string
+                lat:
+                  type: number
+                lng:
+                  type: number
+                city:
+                  type: string
+      responses:
+        "200":
+          description: Clinic profile
+  /clinics/shifts:
+    post:
+      summary: Post shift
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                specialty:
+                  type: string
+                start_time:
+                  type: string
+                end_time:
+                  type: string
+                pay_amount:
+                  type: number
+                address:
+                  type: string
+                lat:
+                  type: number
+                lng:
+                  type: number
+                notes:
+                  type: string
+              example:
+                specialty: "dentist_general"
+                start_time: "2024-09-05T09:00:00Z"
+                end_time: "2024-09-05T13:00:00Z"
+                pay_amount: 4500
+                address: "T Nagar, Chennai"
+                lat: 13.04
+                lng: 80.23
+      responses:
+        "200":
+          description: Shift created
+    get:
+      summary: List shifts
+      responses:
+        "200":
+          description: Shift list
+  /clinics/shifts/{id}/invoice:
+    get:
+      summary: HTML invoice for shift
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: Invoice HTML
+  /doctors/me:
+    post:
+      summary: Create doctor profile
+    get:
+      summary: Get doctor profile
+  /doctors/jobs/available:
+    get:
+      summary: List available shifts
+  /doctors/assignments/{id}/accept:
+    post:
+      summary: Accept assignment
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+  /doctors/assignments/{id}/status:
+    post:
+      summary: Update assignment status
+  /doctors/assignments/{id}/location:
+    post:
+      summary: Post location ping
+  /assignments/{id}/otp/create:
+    post:
+      summary: Create OTP
+  /assignments/{id}/otp/verify:
+    post:
+      summary: Verify OTP
+  /payments/create-order:
+    post:
+      summary: Create payment order
+  /payments/webhook:
+    post:
+      summary: Razorpay webhook
+  /payments/payouts/initiate:
+    post:
+      summary: Initiate payout
+  /admin/doctors/{id}/verify:
+    post:
+      summary: Verify doctor
