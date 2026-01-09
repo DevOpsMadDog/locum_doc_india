@@ -1,0 +1,11 @@
+{
+  "name": "locummap-chennai",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev:clinic": "npm --prefix apps/clinic-web run dev",
+    "dev:doctor": "npm --prefix apps/doctor-mobile run start",
+    "dev:api": "uvicorn app.main:app --reload --port 8000 --app-dir apps/api",
+    "test:api": "pytest apps/api/tests"
+  }
+}

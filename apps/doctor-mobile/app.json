@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "LocumMap Doctor",
+    "slug": "locum-map-doctor",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "sdkVersion": "50.0.0",
+    "platforms": ["ios", "android"],
+    "android": {
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION"
+      ]
+    }
+  }
+}
